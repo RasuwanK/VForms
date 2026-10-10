@@ -3,11 +3,14 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
+import 'package:vforms/utils/ocr.dart';
+import 'package:flutter/foundation.dart';
 
 class ScanScreen extends StatefulWidget {
-  const ScanScreen({super.key, required this.camera});
+  const ScanScreen({super.key, required this.camera, required this.ocr});
 
   final CameraDescription camera;
+  final Ocr ocr;
 
   @override
   State<StatefulWidget> createState() {
@@ -19,6 +22,8 @@ class ScanScreen extends StatefulWidget {
 class _ScanScreenState extends State<ScanScreen> {
   late CameraController _controller;
   late Future<void> _initializeControllerFuture;
+  late Future<void> _initializeOcrFuture;
+
 
   @override
   void initState() {
@@ -33,11 +38,20 @@ class _ScanScreenState extends State<ScanScreen> {
 
     // Initialize controller
     _initializeControllerFuture = _controller.initialize();
+
+    // Initialize OCR
+    _initializeOcrFuture = widget.ocr.initialize();
+
   }
 
   @override
   void dispose() {
+    // Disposing camera controller
     _controller.dispose();
+
+    // Disposing OCR
+    widget.ocr.dispose();
+
     super.dispose();
   }
 
@@ -62,21 +76,21 @@ class _ScanScreenState extends State<ScanScreen> {
         onPressed: () async {
         try {
           await _initializeControllerFuture;
+          await _initializeOcrFuture;
 
           // Attempt to take the picture
           final image = await _controller.takePicture();
+
+          final Uint8List imageBytes = await image.readAsBytes();
 
           if (!context.mounted) return;
 
           // Display on the new screen
           // TODO: Replace with logic to send the picture to the model
-          await Navigator.of(context).push(
-            MaterialPageRoute<void>(
-              builder: (context) => DisplayPictureScreen(
-                imagePath: image.path
-              )
-            )
+          final letters = await widget.ocr.detect(
+              imageBytes
           );
+
         } catch(e) {
           print(e);
         }

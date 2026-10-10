@@ -4,14 +4,14 @@ import 'package:vforms/screens/forms.dart';
 import 'package:vforms/screens/home.dart';
 import 'package:vforms/screens/profile.dart';
 
-class RootPage extends StatefulWidget {
-  const RootPage({super.key});
+class RootScreen extends StatefulWidget {
+  const RootScreen({super.key});
 
   @override
   State<StatefulWidget> createState() => _RootPageState();
 }
 
-class _RootPageState extends State<RootPage> {
+class _RootPageState extends State<RootScreen> {
   int currentScreen = 0;
 
   var screens = [
@@ -38,10 +38,10 @@ class _RootPageState extends State<RootPage> {
       body: screens[currentScreen],
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          print('Pressed');
+          Navigator.pushNamed(context, "/scan");
         },
         tooltip: 'Increment',
-        child: const Icon(Icons.camera_alt),
+        child: const Icon(Icons.document_scanner),
       ),
       bottomNavigationBar: Navbar(
         currentScreen: currentScreen,
