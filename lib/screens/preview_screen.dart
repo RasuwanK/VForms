@@ -7,7 +7,6 @@ class PreviewScreen extends StatelessWidget {
   const PreviewScreen({super.key, required this.imagePath});
 
   final String imagePath;
-  late Ocr _ocr;
 
   @override
   Widget build(BuildContext context) {
