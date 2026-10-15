@@ -1,12 +1,9 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:vforms/screens/root.dart';
 import 'package:vforms/screens/scan.dart';
 import 'package:camera/camera.dart';
-import 'package:vforms/utils/ocr.dart';
 
-Future<void> main() async {
+void main() async {
   // Ensure that plugin services are initialized so that `availableCameras()`
   // can be called before `runApp()`
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,10 +16,9 @@ Future<void> main() async {
 }
 
 class MyApp extends StatefulWidget {
-  MyApp({super.key, required this.camera});
+  const MyApp({super.key, required this.camera});
 
   final CameraDescription camera;
-  final Ocr ocr = Ocr();
 
   @override
   State<StatefulWidget> createState() => _MyAppState();
@@ -32,12 +28,10 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    widget.ocr.initialize();
   }
 
   @override
   void dispose() {
-    widget.ocr.dispose();
     super.dispose();
   }
 
@@ -53,7 +47,7 @@ class _MyAppState extends State<MyApp> {
       initialRoute: "/",
       routes: {
         "/": (context) => RootScreen(),
-        "/scan": (context) => ScanScreen(camera: widget.camera, ocr: widget.ocr)
+        "/scan": (context) => ScanScreen(camera: widget.camera)
       },
     );
   }
