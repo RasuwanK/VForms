@@ -1,11 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:vforms/screens/root.dart';
 import 'package:vforms/screens/scan.dart';
 import 'package:camera/camera.dart';
+import 'package:flutter_edge_ai/flutter_edge_ai.dart';
+import 'package:flutter_edge_ai_litertlm/flutter_edge_ai_litertlm.dart';
 
 void main() async {
   // Ensure that plugin services are initialized so that `availableCameras()`
   // can be called before `runApp()`
+
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Loading env
+  await dotenv.load(fileName: ".env");
+
+  await FlutterEdgeAi.initialize(
+    // Inference engines — add the ones whose packages you depend on:
+    inferenceEngines: const [
+      LiteRtLmEngine(),     // flutter_edge_ai_litertlm  — .litertlm models
+    ],
+
+    // Common settings:
+    // String.fromEnvironment yields '' when the define is absent, and an
+    // empty token still sends a bare `Authorization: Bearer` header. Pass
+    // null instead so the request goes out unauthenticated.
+    huggingFaceToken: dotenv.env['HUGGINGFACE_TOKEN'],
+    maxDownloadRetries: 10,
+  );
+
   WidgetsFlutterBinding.ensureInitialized();
 
   final cameras = await availableCameras();
