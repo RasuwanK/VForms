@@ -1,6 +1,5 @@
-import 'dart:typed_data';
-
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
+import 'package:vforms/schema/scanned_result.dart';
 
 class Ocr {
   TextRecognizer? _textRecognizer;
@@ -54,19 +53,23 @@ class Ocr {
     await recognizer?.close();
   }
 
-  Future<void> scan(InputImage image) async {
+  Future<ScannedResult> scan(String imagePath) async {
+
     if (_textRecognizer == null) {
       throw StateError("OCR is not initialized");
     }
 
     try {
       _isScanning = true;
+      final RecognizedText recognizedText = await _textRecognizer!.processImage(InputImage.fromFilePath(imagePath));
+
+      return ScannedResult.fromBlocks(recognizedText.blocks);
     } catch(_) {
       _isScanning = false;
       rethrow;
+    } finally {
+      _isScanning = false;
     }
 
-    _isScanning = false;
   }
-
 }
