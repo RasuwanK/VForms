@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:vforms/screens/onboarding/welcome_screen.dart';
+import 'package:vforms/screens/onboarding/login_screen.dart';
 import 'package:vforms/screens/root.dart';
 import 'package:vforms/screens/scan.dart';
 import 'package:camera/camera.dart';
@@ -67,10 +69,12 @@ class _MyAppState extends State<MyApp> {
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF4687E1)),
         useMaterial3: true,
       ),
-      initialRoute: "/",
+      initialRoute: "/onboarding/welcome",
       routes: {
-        "/": (context) => RootScreen(),
-        "/scan": (context) => ScanScreen(camera: widget.camera)
+        "/onboarding/welcome": (context) => WelcomeScreen(),
+        "/onboarding/login": (context) => LoginScreen(),
+        "/app": (context) => RootScreen(),
+        "/app/scan": (context) => ScanScreen(camera: widget.camera),
       },
     );
   }
