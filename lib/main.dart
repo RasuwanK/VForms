@@ -4,7 +4,10 @@ import 'package:vforms/screens/onboarding_screen.dart';
 import 'package:vforms/screens/app/root.dart';
 import 'package:vforms/screens/app/scan.dart';
 import 'package:camera/camera.dart';
-import 'package:vforms/services/model.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_ai/firebase_ai.dart';
+import 'package:firebase_app_check/firebase_app_check.dart';
+import 'firebase_options.dart';
 
 void main() async {
   // Loading env
@@ -16,20 +19,25 @@ void main() async {
 
   final firstCamera = cameras.first;
 
+  // Firebase
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   // Loading the LLM
 
-  Model model = Model();
+  // Model model = Model();
 
-  await model.initialize(dotenv.env['HUGGINGFACE_TOKEN']);
+  // await model.initialize(dotenv.env['HUGGINGFACE_TOKEN']);
 
-  runApp(MyApp(camera: firstCamera, model: model));
+  runApp(MyApp(camera: firstCamera, /* model: model */));
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({super.key, required this.camera, required this.model});
+  const MyApp({super.key, required this.camera, /* required this.model */});
 
   final CameraDescription camera;
-  final Model model;
+  //final Model model;
 
   @override
   State<StatefulWidget> createState() => _MyAppState();
@@ -57,7 +65,7 @@ class _MyAppState extends State<MyApp> {
       ),
       initialRoute: "/onboarding",
       routes: {
-        "/onboarding": (context) => OnboardingScreen(model: widget.model),
+        "/onboarding": (context) => OnboardingScreen(/* model: widget.model */),
         "/app": (context) => RootScreen(),
         "/app/scan": (context) => ScanScreen(camera: widget.camera),
       },
