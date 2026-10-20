@@ -1,39 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:vforms/components/button.dart';
 
-class InitializeScreen extends StatefulWidget {
-  const InitializeScreen({super.key});
+class InitializeScreen extends StatelessWidget {
+  const InitializeScreen({super.key,required this.progress, required this.startModelDownload});
 
-  @override
-  State<StatefulWidget> createState() => _InitializeScreenState();
-}
-
-class _InitializeScreenState extends State<InitializeScreen> {
-  int downloadProgress = 0;
-
-  @override
-  void initState() {
-    super.initState();
-
-
-  }
+  final double progress;
+  final bool startModelDownload;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Initializing',
-          textAlign: TextAlign.center,
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Text(
+          'Let\'s Download The Models',
           style: TextStyle(
-            fontSize: 55,
             color: Color(0xFF4687E1),
+            fontSize: 25,
             fontWeight: FontWeight.bold,
           ),
         ),
-      ),
-      body: Center(child: Column(children: [
-
-      ])),
+        SizedBox(height: 20),
+        Text(
+          'To use the app it is required to download the necessary models which will take few moments',
+          textAlign: TextAlign.center,
+          style: TextStyle(color: Color(0xFF4687E1)),
+        ),
+        SizedBox(height: 20),
+        if (startModelDownload) LinearProgressIndicator(
+          value: progress,
+        )
+      ],
     );
   }
 }

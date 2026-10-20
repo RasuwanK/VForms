@@ -11,30 +11,10 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Login',
-          style: TextStyle(
-            color: Color(0xFF4687E1),
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      body: Center(
-        child: Column(
-          children: [
-            const Text('Login'),
-            Button(
-              text: 'Skip For Now',
-              onPressed: () {
-                Navigator.pushNamed(context, "/onboarding/initialize");
-              },
-              icon: Icons.arrow_forward,
-            )
-          ],
-        ),
-      )
+    return Column(
+      children: [
+        const Text('Login'),
+      ],
     );
   }
 }
