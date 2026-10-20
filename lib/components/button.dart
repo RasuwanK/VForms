@@ -27,9 +27,10 @@ class Button extends StatelessWidget {
       onPressed: onPressed,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(text, style: TextStyle(fontSize: 18)),
-          const SizedBox(width: 10),
+          if (icon != null) const SizedBox(width: 10),
           Icon(icon, size: 25),
         ],
       ),
