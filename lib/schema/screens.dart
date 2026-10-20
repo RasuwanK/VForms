@@ -1,0 +1,1 @@
+enum Screens { welcome, login, initialize }
