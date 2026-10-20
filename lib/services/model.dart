@@ -24,12 +24,12 @@ class Model {
     return _initializationFuture ??= _initializeInternal(token);
   }
 
-  Future<void> installModel() async {
+  Future<void> installModel(void Function(int) onProgress) async {
     if (model != null) {
       return Future.value();
     }
 
-    return _installFuture ??= _installModelInternal();
+    return _installFuture ??= _installModelInternal(onProgress);
   }
 
   Future<void> createChat() async {
@@ -92,7 +92,7 @@ class Model {
   bool get isInitialized => _isInitialized;
   bool get isDisposed => _isDisposed;
 
-  Future<void> _installModelInternal() async {
+  Future<void> _installModelInternal(void Function(int) onProgress) async {
     _isModelInstalled = false;
 
     try {
@@ -101,7 +101,7 @@ class Model {
         fileType: ModelFileType.litertlm, // selects the engine — declare it
       ).fromNetwork(
         'https://huggingface.co/litert-community/Gemma3-1B-IT/resolve/main/Gemma3-1B-IT_multi-prefill-seq_q4_ekv4096.litertlm',
-      ).withProgress((progress) => installProgress = progress).install();
+      ).withProgress((progress) => onProgress(progress)).install();
 
       _isModelInstalled = true;
     } catch(_) {
