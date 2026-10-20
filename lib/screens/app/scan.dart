@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
-import 'package:vforms/screens/preview_screen.dart';
+import 'package:vforms/screens/app/preview_screen.dart';
 
 class ScanScreen extends StatefulWidget {
   const ScanScreen({super.key, required this.camera});

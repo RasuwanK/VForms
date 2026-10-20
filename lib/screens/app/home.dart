@@ -20,7 +20,7 @@ class HomePage extends StatelessWidget {
             elevation: 0,
             child: InkWell(
               onTap: () {
-                Navigator.pushNamed(context, "/scan");
+                Navigator.pushNamed(context, '/app/scan');
               },
               child: Padding(
                 padding: EdgeInsets.only(

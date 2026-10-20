@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:vforms/schema/scanned_result.dart';
-import 'package:vforms/screens/scan_results.dart';
+import 'package:vforms/screens/app/scan_results.dart';
 import 'package:vforms/services/ocr.dart';
 
 class PreviewScreen extends StatefulWidget {

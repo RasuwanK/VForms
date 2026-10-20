@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:vforms/components/navbar.dart';
-import 'package:vforms/screens/forms.dart';
-import 'package:vforms/screens/home.dart';
-import 'package:vforms/screens/profile.dart';
+import 'package:vforms/screens/app/forms.dart';
+import 'package:vforms/screens/app/home.dart';
+import 'package:vforms/screens/app/profile.dart';
 
 class RootScreen extends StatefulWidget {
   const RootScreen({super.key});
