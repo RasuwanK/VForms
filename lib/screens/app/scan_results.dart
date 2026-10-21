@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:firebase_ai/firebase_ai.dart';
 import 'package:flutter/material.dart';
 import 'package:vforms/schema/scanned_result.dart';
 
@@ -13,6 +14,8 @@ class ScanResultsScreen extends StatefulWidget {
 }
 
 class _ScanResultsScreenState extends State<ScanResultsScreen> {
+  final model = FirebaseAI.googleAI().generativeModel(model: "gemini-3.8-flash");
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,15 +25,7 @@ class _ScanResultsScreenState extends State<ScanResultsScreen> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          for (final block in widget.scanResults.blocks)
-            Padding(
-              padding: const EdgeInsets.only(
-                bottom: 12
-              ),
-              child: Text(
-                jsonEncode(block.toJson())
-              ),
-            )
+
         ],
       )
     );

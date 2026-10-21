@@ -28,7 +28,7 @@ class _ScanScreenState extends State<ScanScreen> {
     _controller = CameraController(
       // Get a specific camera
       widget.camera,
-      ResolutionPreset.high,
+      ResolutionPreset.medium,
     );
 
     // Initialize controller
